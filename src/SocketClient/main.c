@@ -3,7 +3,7 @@
 int main(){
 
     int socketFD = createTCPIPv4Socket();
-    struct sockaddr_in *address = createIPv4Address("172.253.63.100",80);
+    struct sockaddr_in *address = createIPv4Address("127.0.0.1",2000);
     int result = connect(socketFD,address,sizeof(*address));
 
     if(result == 0){
