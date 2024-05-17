@@ -7,6 +7,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <string.h>
+#include <stdbool.h>
 
 /**
  * Creates an IPv4 address structure.

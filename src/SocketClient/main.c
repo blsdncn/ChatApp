@@ -10,9 +10,20 @@ int main(){
         printf("Connection has been established\n");
     }
 
-    char* message;
-    message = "GET \\ HTTP/1.1\r\nHost:google.com\r\n\r\n";
-    send(socketFD,message,strlen(message),0);
+
+    char *line = NULL;
+    size_t lineSize = 0;
+    printf("Write a message to send to the server...\n");
+
+    while(true){
+        ssize_t charCount = getline(&line,&lineSize,stdin); 
+        if(charCount>0){
+            if(strcmp(line,"exit\n")==0){
+                break;
+            }
+        ssize_t amountSent = send(socketFD,line,charCount,0);
+        }
+    }
 
     char buffer[1024];
     recv(socketFD,buffer,1024,0);
