@@ -17,6 +17,7 @@ int main(){
     char buffer[1024];
 
     while(true){
+        printf("Waiting for connection.\n");
         int clientSocketFD = accept(serverSocketFD,&clientAddress,&clientAddressSize);
         if(clientSocketFD<0){
             perror("Accpet failed");
@@ -33,13 +34,19 @@ int main(){
             memset(buffer,0,sizeof(buffer)); //clear buffer
             ssize_t bytesReceived = recv(clientSocketFD,buffer,1024,0);
             if(bytesReceived < 0){
-                perror("recv failed");
+                perror("recv failed\n");
                 break;
             }
+
+            if(bytesReceived==0){
+                printf("Client has disconnected.\n");
+            }
+
             buffer[bytesReceived] = '\0';
 
             if(strcmp(buffer,"exit")==0){
-                printf("Client exited.");
+                printf("Client exited.\n");
+                close(clientSocketFD);
                 break;
             }
             printf("Message recieved from client: %s\n",buffer);
